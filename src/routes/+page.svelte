@@ -1,4 +1,4 @@
-<main class="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
+<main class="bg-gradient-to-r from-gray-900 to-pink-800 flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
     <section class="max-w-4xl w-full text-center">
       <div class="mb-12">
         <h1 class="text-4xl md:text-6xl font-bold mb-4">Nivetha Balu</h1>
@@ -11,35 +11,3 @@
       </div>
     </section>
   </main>
-  
-  <section id="about" class="bg-gray-800 py-12">
-    <div class="max-w-4xl mx-auto p-6">
-      <h2 class="text-3xl font-bold mb-4">About Me</h2>
-      <p class="text-lg leading-relaxed">
-        I am a passionate full stack developer with experience in building web applications using modern technologies.
-        My expertise includes JavaScript, TypeScript, Svelte, and more. I enjoy contributing to open source projects and
-        staying up-to-date with the latest industry trends.
-      </p>
-    </div>
-  </section>
-  
-  <section id="projects" class="bg-gray-700 py-12">
-    <div class="max-w-4xl mx-auto p-6">
-      <h2 class="text-3xl font-bold mb-4">Projects</h2>
-      <ul class="space-y-4">
-        <li class="bg-gray-800 p-4 rounded-lg">
-          <h3 class="text-xl font-semibold">Project One</h3>
-          <p class="text-lg leading-relaxed">
-            Description of the first project. Highlight the key features and technologies used.
-          </p>
-        </li>
-        <li class="bg-gray-800 p-4 rounded-lg">
-          <h3 class="text-xl font-semibold">Project Two</h3>
-          <p class="text-lg leading-relaxed">
-            Description of the second project. Highlight the key features and technologies used.
-          </p>
-        </li>
-        <!-- Add more projects as needed -->
-      </ul>
-    </div>
-  </section>
