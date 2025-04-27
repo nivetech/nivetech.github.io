@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivetha Balu | Portfolio</title>
+
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            header: ['"Playfair Display"', 'serif'],
+            body: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              light: '#7F5AF0',
+              DEFAULT: '#6B46C1',
+              dark: '#553C9A'
+            },
+            accent: {
+              light: '#00D4FF',
+              DEFAULT: '#00B5E2',
+              dark: '#0099CC'
+            },
+            dark: {
+              surface: '#121826',
+              card: '#1E293B',
+              muted: '#334155'
+            },
+            light: {
+              surface: '#F8FAFC',
+              card: '#FFFFFF',
+              muted: '#E2E8F0'
+            }
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F8FAFC;
+    }
+    
+    body.dark {
+      background-color: #121826;
+    }
+
+    .dark body {
+      background: linear-gradient(135deg, #121826, #1E293B);
+      background-size: 200% 200%;
+      animation: gradientMove 15s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .glass-card {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+
+<body class="font-body text-slate-800 dark:text-slate-100 transition-all duration-300">
+  
+  <!-- Navbar -->
+  <header class="fixed w-full z-50 bg-white/80 dark:bg-dark-card/80 shadow-sm backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-header font-bold text-primary-dark dark:text-primary-light">Nivetha Balu</h1>
+      <div class="flex items-center gap-6">
+        <nav class="hidden md:flex gap-6">
+          <a href="#about" class="hover:text-primary-dark dark:hover:text-primary-light transition">About</a>
+          <a href="#skills" class="hover:text-primary-dark dark:hover:text-primary-light transition">Skills</a>
+          <a href="#projects" class="hover:text-primary-dark dark:hover:text-primary-light transition">Projects</a>
+        </nav>
+        <button id="theme-toggle" class="text-xl p-2 rounded-full hover:bg-slate-100 dark:hover:bg-dark-muted transition">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24 max-w-6xl mx-auto px-6">
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+      <div class="md:w-3/5 space-y-6">
+        <h2 class="text-4xl md:text-5xl font-header font-bold bg-gradient-to-r from-primary-dark to-accent-dark dark:from-primary-light dark:to-accent-light bg-clip-text text-transparent">
+          Data Scientist & Developer
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
+          Building AI/ML solutions, creating innovative projects, and exploring the universe through data and technology.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="mailto:nivethabalu.nitt@gmail.com" class="px-6 py-3 bg-primary-dark dark:bg-primary text-white font-medium rounded-lg hover:shadow-lg hover:translate-y-[-2px] transition-all" target="_blank" rel="noopener noreferrer">
+            Get in Touch
+          </a>
+          <a href="#projects" class="px-6 py-3 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-dark-muted hover:shadow-md transition-all">
+            View Projects
+          </a>
+        </div>
+      </div>
+      <div class="md:w-2/5 flex justify-center">
+        <!-- Placeholder for profile image or illustration -->
+        <div class="w-64 h-64 rounded-full bg-gradient-to-br from-primary-light via-accent to-purple-300 dark:from-primary dark:via-accent-dark dark:to-purple-700 flex items-center justify-center text-4xl">
+          <img src = "profilepic.jpeg">
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 scroll-mt-24">
+      <h3 class="text-2xl font-header font-bold mb-8 text-primary-dark dark:text-primary-light">About Me</h3>
+      <div class="bg-light-card dark:bg-dark-card rounded-2xl shadow-sm p-8 dark:shadow-none">
+        <p class="text-lg leading-relaxed">
+          I'm a data scientist with 2 years of experience in software engineering and a master's in Big Data Analytics. 
+          I love creating innovative machine learning solutions and have published research in deep learning applications.
+          My passion lies in transforming complex data into actionable insights and building intelligent systems that solve real-world problems.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 scroll-mt-24">
+      <h3 class="text-2xl font-header font-bold mb-8 text-primary-dark dark:text-primary-light">Skills</h3>
+      <div class="bg-light-card dark:bg-dark-card rounded-2xl shadow-sm p-8 dark:shadow-none">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">🐍</span>
+            <span class="font-medium">Python</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">📊</span>
+            <span class="font-medium">SQL</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">☕</span>
+            <span class="font-medium">Java</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">🧠</span>
+            <span class="font-medium">Machine Learning</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">📡</span>
+            <span class="font-medium">Apache Kafka</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">🍃</span>
+            <span class="font-medium">Spring Boot</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">📈</span>
+            <span class="font-medium">PowerBI / Qlik</span>
+          </div>
+          <div class="p-4 bg-light-muted dark:bg-dark-muted rounded-xl flex flex-col items-center">
+            <span class="text-2xl mb-2">🔄</span>
+            <span class="font-medium">Git / Maven</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 scroll-mt-24">
+      <h3 class="text-2xl font-header font-bold mb-8 text-primary-dark dark:text-primary-light">Projects</h3>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-light-card dark:bg-dark-card rounded-2xl shadow-sm p-8 dark:shadow-none hover:shadow-md dark:hover:bg-dark-muted/50 transition-all">
+          <div class="text-accent-dark dark:text-accent-light text-3xl mb-4">🔬</div>
+          <h4 class="text-xl font-bold mb-3">Deep Learning with Wearable Data</h4>
+          <p class="text-slate-600 dark:text-slate-300 mb-6">Built ensemble ML models for emotion recognition achieving 93% accuracy. Created synthetic data generators with conditional GANs.</p>
+          <a href="https://drive.google.com/file/d/1PxJtJgEtUV_YDQdlDspQpWNiXn-4Ygfo/view" class="text-primary-dark dark:text-primary-light font-medium hover:underline" target="_blank" rel="noopener noreferrer">View details →</a>
+        </div>
+        <div class="bg-light-card dark:bg-dark-card rounded-2xl shadow-sm p-8 dark:shadow-none hover:shadow-md dark:hover:bg-dark-muted/50 transition-all">
+          <div class="text-accent-dark dark:text-accent-light text-3xl mb-4">👁️</div>
+          <h4 class="text-xl font-bold mb-3">Myopia Classification from Fundus Images</h4>
+          <p class="text-slate-600 dark:text-slate-300 mb-6">Developed a deep learning model with transfer learning, achieving 97.5% validation accuracy for early-stage pathological myopia diagnosis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/5 dark:to-accent/5 rounded-2xl my-8 text-center">
+      <h3 class="text-2xl font-header font-bold mb-4">Let's Collaborate!</h3>
+      <p class="text-slate-600 dark:text-slate-300 max-w-xl mx-auto mb-8">
+        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+      </p>
+      <a href="mailto:nivethabalu.nitt@gmail.com" class="px-8 py-4 bg-gradient-to-r from-primary to-accent text-white font-medium rounded-lg hover:shadow-lg hover:translate-y-[-2px] transition-all inline-flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+        <span>📧</span> Reach Out
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-slate-500 dark:text-slate-400">&copy; 2025 Nivetha Balu • Built with ☄️</p>
+      <div class="flex gap-6">
+        <a href="https://www.linkedin.com/in/nivetha98/" class="text-slate-500 hover:text-primary-dark dark:text-slate-400 dark:hover:text-primary-light" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/nivetech" class="text-slate-500 hover:text-primary-dark dark:text-slate-400 dark:hover:text-primary-light" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Theme Toggle -->
+  <script>
+    // Check for saved theme preference or use system preference
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('theme-toggle').textContent = '☀️';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('theme-toggle').textContent = '🌙';
+    }
+
+    // Theme toggle functionality
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        toggle.textContent = '🌙';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggle.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>
