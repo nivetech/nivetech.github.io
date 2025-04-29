@@ -1,0 +1,163 @@
+---
+import "../styles/global.css"
+// Define props interface for the Layout component
+interface Props {
+	title?: string
+	description?: string
+	image?: string // For social sharing
+	canonicalURL?: string
+}
+
+// Destructure props with defaults
+const { 
+  	title = "Nivetha Balu | Portfolio",
+  	description = "Data Scientist & Developer building AI/ML solutions and exploring the universe through data and technology.",
+	// image = "/images/social-share.jpg", // Default social image
+	canonicalURL = Astro.url.href,
+} = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- SEO and Social Media Tags -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<!-- <meta property="og:image" content={new URL(image, Astro.site)} /> -->
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<!-- Preload critical fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+	</head>
+	<body class="font-body text-slate-800 dark:text-slate-100 transition-colors duration-300">
+		<!-- Skip to content link for accessibility -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-50">
+			Skip to content
+		</a>
+		
+		<slot name="header" />
+		
+		<main id="main-content" class="pt-24 max-w-6xl mx-auto px-4 sm:px-6 min-h-[calc(100vh-200px)]">
+			<slot />
+		</main>
+
+		<slot name="footer" />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		/* Modern color palette with CSS variables */
+		--color-primary-50: #f5f3ff;
+		--color-primary-100: #ede9fe;
+		--color-primary-200: #ddd6fe;
+		--color-primary-300: #c4b5fd;
+		--color-primary-400: #a78bfa;
+		--color-primary-500: #8b5cf6;
+		--color-primary-600: #7c3aed;
+		--color-primary-700: #6d28d9;
+		--color-primary-800: #5b21b6;
+		--color-primary-900: #4c1d95;
+		
+		--color-accent-50: #f0fdff;
+		--color-accent-100: #ccf7ff;
+		--color-accent-200: #99eeff;
+		--color-accent-300: #66e4ff;
+		--color-accent-400: #33dbff;
+		--color-accent-500: #00d1ff;
+		--color-accent-600: #00b5e2;
+		--color-accent-700: #0099cc;
+		--color-accent-800: #007da6;
+		--color-accent-900: #006080;
+		
+		--color-dark-surface: #0f172a;
+		--color-dark-card: #1e293b;
+		--color-dark-muted: #334155;
+		--color-light-surface: #f8fafc;
+		--color-light-card: #ffffff;
+		--color-light-muted: #e2e8f0;
+		
+		/* System fonts as fallbacks */
+		--font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		--font-serif: 'Playfair Display', Georgia, Cambria, 'Times New Roman', Times, serif;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+
+	body {
+		margin: 0;
+		width: 100%;
+		min-height: 100vh;
+		background-color: var(--color-light-surface);
+		font-family: var(--font-sans);
+		line-height: 1.6;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	.dark body {
+		background: linear-gradient(135deg, var(--color-dark-surface), var(--color-dark-card));
+		background-size: 200% 200%;
+		animation: gradientMove 15s ease infinite;
+	}
+
+	@keyframes gradientMove {
+		0% { background-position: 0% 50%; }
+		50% { background-position: 100% 50%; }
+		100% { background-position: 0% 50%; }
+	}
+	
+	.glass-card {
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		background-color: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		border-radius: 1rem;
+	}
+
+	.dark .glass-card {
+		background-color: rgba(30, 41, 59, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+	.font-header {
+		font-family: var(--font-serif);
+	}
+
+	.font-body {
+		font-family: var(--font-sans);
+	}
+	
+	/* Modern focus styles */
+	:focus-visible {
+		outline: 2px solid var(--color-primary-500);
+		outline-offset: 2px;
+	}
+	
+	/* Smooth transitions */
+	a, button {
+		transition: all 0.2s ease;
+	}
+</style>

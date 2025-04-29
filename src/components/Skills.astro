@@ -1,0 +1,117 @@
+---
+interface Skill {
+    icon: string
+    name: string
+    category: string
+}
+
+interface SkillCategory {
+    name: string
+    icon: string
+    skills: Skill[]
+}
+
+interface Props {
+    skillCategories?: SkillCategory[]
+}
+
+// Organized skills by category with a more compact structure
+const defaultSkillCategories: SkillCategory[] = [
+    {
+        name: "Languages",
+        icon: "💻",
+        skills: [
+            { icon: "🐍", name: "Python", category: "language" },
+            { icon: "☕", name: "Java", category: "language" },
+            { icon: "🌐", name: "JavaScript", category: "language" },
+            { icon: "🔶", name: "TypeScript", category: "language" },
+            { icon: "🔍", name: "C/C++", category: "language" }
+        ]
+    },
+    {
+        name: "Data & ML",
+        icon: "📊",
+        skills: [
+            { icon: "📊", name: "SQL", category: "data" },
+            { icon: "🧠", name: "Machine Learning", category: "data" },
+            { icon: "📈", name: "PowerBI / Qlik", category: "data" },
+            { icon: "🔥", name: "Apache Spark", category: "data" },
+            { icon: "🐘", name: "Hadoop", category: "data" }
+        ]
+    },
+    {
+        name: "Tools & Frameworks",
+        icon: "🔧",
+        skills: [
+            { icon: "🍃", name: "Spring Boot", category: "framework" },
+            { icon: "⚛️", name: "React / Angular", category: "framework" },
+            { icon: "🔄", name: "Git / Maven", category: "tool" },
+            { icon: "🐳", name: "Docker", category: "tool" },
+            { icon: "📡", name: "Apache Kafka", category: "infrastructure" }
+        ]
+    },
+    {
+        name: "Cloud & DB",
+        icon: "☁️",
+        skills: [
+            { icon: "☁️", name: "AWS", category: "cloud" },
+            { icon: "🔷", name: "Azure", category: "cloud" },
+            { icon: "🗄️", name: "MongoDB", category: "database" },
+            { icon: "🐘", name: "PostgreSQL", category: "database" },
+            { icon: "🔶", name: "Elasticsearch", category: "database" }
+        ]
+    }
+]
+
+const { skillCategories = defaultSkillCategories } = Astro.props
+---
+
+<section id="skills" class="py-8 scroll-mt-16 relative container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl font-header font-bold mb-5 text-primary-dark dark:text-primary-light">Skills</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {skillCategories.map(category => (
+                <div class="bg-gray-100 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <!-- Retro terminal header -->
+                    <div class="bg-gray-800 dark:bg-gray-900 text-green-400 dark:text-green-500 px-3 py-1.5 font-mono text-sm flex items-center">
+                        <span class="mr-2">{category.icon}</span>
+                        <span class="mr-1">$</span>
+                        <span class="typing-effect">{category.name}</span>
+                    </div>
+                    
+                    <!-- Skills grid with retro terminal look -->
+                    <div class="p-3 font-mono text-sm grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {category.skills.map(skill => (
+                            <div class="flex items-center space-x-1.5 py-1 px-2 rounded bg-gray-200/70 dark:bg-gray-700/70 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors">
+                                <span>{skill.icon}</span>
+                                <span class="text-gray-800 dark:text-gray-200 break-words">{skill.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Retro terminal typing effect */
+    .typing-effect {
+        border-right: 2px solid currentColor;
+        animation: cursor-blink 1s step-end infinite;
+    }
+    
+    @keyframes cursor-blink {
+        from, to { border-color: transparent }
+        50% { border-color: currentColor; }
+    }
+    
+    /* Disable animation for reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        .typing-effect {
+            animation: none;
+            border-right: none;
+        }
+    }
+</style>

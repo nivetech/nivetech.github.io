@@ -1,0 +1,157 @@
+---
+// Import sub-components
+import NavLink from './navbar/NavLink.astro'
+import ThemeToggle from './navbar/ThemeToggle.astro'
+import MobileMenu from './navbar/MobileMenu.astro'
+
+// Define navigation items in one place for easy maintenance
+const navItems = [
+    { href: '#about', label: 'About' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#projects', label: 'Projects' },
+]
+---
+
+<header id="main-header" class="fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 my-3 flex justify-between items-center rounded-2xl 
+                backdrop-blur-xl bg-white/70 dark:bg-dark-card/60 
+                border border-white/30 dark:border-slate-700/40
+                shadow-md shadow-slate-200/40 dark:shadow-black/30 transition-all">
+        
+        <!-- Logo -->
+        <a href="/" class="group flex items-center gap-2">
+            <h1 class="text-2xl font-header font-bold bg-gradient-to-r from-primary-dark to-accent dark:from-primary-light dark:to-accent-light bg-clip-text text-transparent relative">
+                Nivetha Balu
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent to-primary-dark dark:from-accent-light dark:to-primary-light 
+                            transition-all duration-300 group-hover:w-full"></span>
+            </h1>
+        </a>
+        
+        <div class="flex items-center gap-6">
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex gap-8">
+                {navItems.map(item => (
+                <NavLink href={item.href}>{item.label}</NavLink>
+                ))}
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button 
+                id="mobile-menu-toggle" 
+                class="md:hidden p-2 rounded-full text-slate-700 dark:text-slate-200 
+                    hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors" 
+                aria-label="Toggle menu"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            
+            <!-- Theme toggle button -->
+            <ThemeToggle/>
+        </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <MobileMenu navItems={navItems}/>
+</header>
+
+<style>
+    @reference "../styles/global.css";
+    /* Navbar scroll effect */
+    .nav-scrolled > div {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        @apply bg-white/90 dark:bg-dark-card/80;
+        @apply backdrop-blur-xl;
+        @apply shadow-lg shadow-slate-200/50 dark:shadow-black/40;
+    }
+    
+    /* Add subtle hover effect to the navbar */
+    header > div {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    header > div:hover {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        @apply dark:shadow-accent-light/10;
+        transform: translateY(-1px);
+    }
+    
+    /* Active nav link styling */
+    .nav-link.active {
+        @apply font-medium;
+        @apply text-primary-dark dark:text-primary-light;
+        position: relative;
+    }
+    
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        @apply bg-gradient-to-r from-accent to-primary-dark dark:from-accent-light dark:to-primary-light;
+        border-radius: 2px;
+    }
+</style>
+
+<script>
+    // Scroll effect for navbar
+    const header = document.getElementById('main-header')
+    const scrollThreshold = 20 // Reduced threshold for quicker response
+    
+    function updateNavbar() {
+        if (window.scrollY > scrollThreshold) {
+            header.classList.add('nav-scrolled')
+        } else {
+            header.classList.remove('nav-scrolled')
+        }
+    }
+  
+    // Initial check
+    updateNavbar()
+    
+    // Listen for scroll with improved performance
+    window.addEventListener('scroll', () => {
+        window.requestAnimationFrame(updateNavbar);
+    })
+    
+    // Set active nav link based on scroll position with improved accuracy
+    const sections = document.querySelectorAll('section[id]')
+    const navLinks = document.querySelectorAll('.nav-link')
+    
+    function setActiveNavLink() {
+        const scrollPosition = window.scrollY + 150 // Adjusted offset for better accuracy
+        
+        // Find the current section
+        let currentSection = '';
+        sections.forEach(section => {
+            if (section) {
+                const sectionTop = section.offsetTop
+                const sectionHeight = section.offsetHeight
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id')
+                }
+            }
+        })
+        
+        // Update active class
+        navLinks.forEach(link => {
+            link.classList.remove('active')
+            const href = link.getAttribute('href')
+            if (href === `#${currentSection}`) {
+                link.classList.add('active')
+            }
+        })
+    }
+  
+    window.addEventListener('scroll', () => {
+        window.requestAnimationFrame(setActiveNavLink);
+    })
+    document.addEventListener('DOMContentLoaded', setActiveNavLink)
+</script>

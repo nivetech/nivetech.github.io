@@ -1,0 +1,34 @@
+---
+interface SocialLink {
+    name: string
+    url: string
+}
+
+interface Props {
+    copyright?: string
+    socialLinks?: SocialLink[]
+}
+
+const defaultSocialLinks: SocialLink[] = [
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/nivetha98/" },
+    { name: "GitHub", url: "https://github.com/nivetech" }
+]
+
+const {
+    copyright = "© 2025 Nivetha Balu • Built with Astro",
+    socialLinks = defaultSocialLinks
+} = Astro.props
+---
+
+<footer class="py-12 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-slate-500 dark:text-slate-400">{copyright}</p>
+        <div class="flex gap-6">
+            {socialLinks.map(link => (
+                <a href={link.url} class="text-slate-500 hover:text-primary-dark dark:text-slate-400 dark:hover:text-primary-light" target="_blank" rel="noopener noreferrer">
+                {link.name}
+                </a>
+            ))}
+        </div>
+    </div>
+</footer>

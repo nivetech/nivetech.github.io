@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Font families */
+    --font-header: "Playfair Display", serif;
+    --font-body: "Plus Jakarta Sans", sans-serif;
+    
+    /* Colors */
+    /* Primary colors */
+    --color-primary-light: #A78BFF;
+    --color-primary: #6B46C1;
+    --color-primary-dark: #4E2D9D;
+    
+    /* Accent colors - improved contrast */
+    --color-accent-light: #00DDFF;
+    --color-accent: #00B5E2;
+    --color-accent-dark: #0088B8;
+    
+    /* Dark theme colors - improved contrast */
+    --color-dark-surface: #0F1521;
+    --color-dark-card: #1E293B;
+    --color-dark-muted: #475569;
+    
+    /* Light theme colors - improved contrast */
+    --color-light-surface: #F8FAFC;
+    --color-light-card: #FFFFFF;
+    --color-light-muted: #CBD5E1;
+}
+
+/* You can also define custom utilities directly in CSS now */
+@layer utilities {
+    .font-header {
+        font-family: var(--font-header);
+    }
+    
+    .font-body {
+        font-family: var(--font-body);
+    }
+}
