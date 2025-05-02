@@ -14,35 +14,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
         with:
-          node-version: 18
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Build Astro site
-        run: npm run build
-        
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-          name: github-pages  # 👈 Must match what deploy-pages expects
+          # Optional: specify if you're using a specific setup
+          # path: .                        # Set if Astro project is in a subfolder
+          node-version: 18                 # Lock to Node.js 18 (since you mentioned that earlier)
+          package-manager: npm@latest      # Use npm, or replace with pnpm/yarn if needed
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      # 💡 This line is *optional* and won't break things, but may be removed for clarity
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
-        with:
-          artifact_name: github-pages  # 👈 Ensure this matches above
+        uses: actions/deploy-pages@v4
