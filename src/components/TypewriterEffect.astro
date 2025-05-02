@@ -1,0 +1,75 @@
+---
+interface Props {
+  roles: Array<{text: string, emoji: string}>;
+}
+
+const { roles } = Astro.props;
+---
+
+<span id="typewriter" class="bg-gradient-to-r from-accent-dark to-primary-dark dark:from-accent-light dark:to-primary-light bg-clip-text text-transparent"></span>
+
+<script define:vars={{ roles }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typewriterElement = document.getElementById('typewriter');
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 80;
+    let pauseDuration = 1800;
+    
+    function typeWriter() {
+      const currentRole = roles[roleIndex];
+      const fullText = currentRole.text + currentRole.emoji;
+      
+      if (isDeleting) {
+        // Deleting text
+        typewriterElement.textContent = fullText.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 40; // Faster when deleting
+      } else {
+        // Typing text
+        typewriterElement.textContent = fullText.substring(0, charIndex + 1);
+        charIndex++;
+        
+        // Variable typing speed for more natural effect
+        typingSpeed = Math.random() * 30 + 70; // Between 70-100ms
+      }
+      
+      // Handle state changes with smoother transitions
+      if (!isDeleting && charIndex === fullText.length) {
+        // Finished typing, pause before deleting
+        isDeleting = true;
+        typingSpeed = pauseDuration;
+      } else if (isDeleting && charIndex === 0) {
+        // Finished deleting, move to next role
+        isDeleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        
+        // Small pause before typing the next word
+        typingSpeed = 300;
+      }
+      
+      setTimeout(typeWriter, typingSpeed);
+    }
+    
+    // Start the typewriter effect
+    typeWriter();
+  });
+</script>
+
+<style>
+    /* Add a blinking cursor effect to the typewriter */
+    #typewriter::after {
+        content: '|';
+        display: inline-block;
+        margin-left: 2px;
+        opacity: 1;
+        animation: blink 0.7s infinite;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+</style>

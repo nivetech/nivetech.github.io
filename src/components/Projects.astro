@@ -1,0 +1,109 @@
+---
+interface Project {
+    icon: string
+    title: string
+    description: string
+    tags?: string[]
+    link?: {
+        url: string
+        text: string
+    }
+}
+
+interface Props {
+    projects?: Project[]
+}
+
+const defaultProjects: Project[] = [
+    {
+        icon: "🔬",
+        title: "Deep Learning with Wearable Data",
+        description: "Built ensemble ML models for emotion recognition achieving 93% accuracy. Created synthetic data generators with conditional GANs.",
+        tags: ["Deep Learning", "GANs", "Python"],
+        link: {
+            url: "https://drive.google.com/file/d/1PxJtJgEtUV_YDQdlDspQpWNiXn-4Ygfo/view",
+            text: "View details →"
+        }
+    },
+    {
+        icon: "👁️",
+        title: "Myopia Classification from Fundus Images",
+        description: "Developed a deep learning model with transfer learning, achieving 97.5% validation accuracy for early-stage pathological myopia diagnosis.",
+        tags: ["Computer Vision", "Transfer Learning", "Medical AI"]
+    }
+]
+
+const { projects = defaultProjects } = Astro.props
+---
+
+<section id="projects" class="py-8 scroll-mt-24 container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl font-header font-bold mb-8 text-primary-dark dark:text-primary-light">Projects</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            {projects.map(project => (
+                <div class="group bg-light-card dark:bg-dark-card rounded-lg shadow-sm p-6 dark:shadow-none 
+                            hover:shadow-md dark:hover:bg-dark-muted/30 transition-all duration-300 
+                            border border-gray-100 dark:border-gray-800 hover:border-primary/10 dark:hover:border-primary-dark/10 
+                            relative overflow-hidden backdrop-blur-sm">
+                    
+                    <!-- Subtle gradient accent -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent 
+                                dark:from-primary/10 rounded-bl-[100px] -z-0"></div>
+                    
+                    <div class="relative z-10">
+                        <!-- Icon with subtle animation -->
+                        <div class="inline-flex items-center justify-center text-2xl mb-4 
+                                    bg-gray-50 dark:bg-gray-800 rounded-full w-12 h-12
+                                    transform transition-all duration-300 
+                                    group-hover:scale-110 group-hover:text-primary-dark dark:group-hover:text-primary-light
+                                    group-hover:shadow-sm">
+                            {project.icon}
+                        </div>
+                        
+                        <!-- Title with hover effect -->
+                        <h4 class="text-xl font-bold mb-3 group-hover:text-primary-dark 
+                                dark:group-hover:text-primary-light transition-colors">
+                            {project.title}
+                        </h4>
+                        
+                        <!-- Clean description -->
+                        <p class="text-slate-600 dark:text-slate-300 mb-5 text-sm leading-relaxed">
+                            {project.description}
+                        </p>
+                        
+                        <!-- Tags with minimal design -->
+                        {project.tags && (
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                {project.tags.map(tag => (
+                                    <span class="text-xs px-2.5 py-1 bg-gray-100 dark:bg-gray-800 
+                                                text-gray-700 dark:text-gray-300 rounded-full
+                                                border border-transparent hover:border-primary/10 dark:hover:border-primary-dark/10
+                                                transition-colors">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                        
+                        <!-- Link with subtle animation -->
+                        {project.link && (
+                            <a href={project.link.url} 
+                               class="inline-flex items-center text-sm text-primary-dark dark:text-primary-light 
+                                      font-medium mt-2 group-hover:translate-x-1 transition-all duration-300" 
+                               target="_blank" 
+                               rel="noopener noreferrer">
+                                <span class="border-b border-transparent group-hover:border-current">
+                                    {project.link.text}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

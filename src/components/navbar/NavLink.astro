@@ -1,0 +1,33 @@
+---
+interface Props {
+    href: string
+    isActive?: boolean
+}
+
+const { href, isActive = false } = Astro.props
+---
+
+<a 
+    href={href} 
+    class:list={[
+        "relative inline-flex items-center px-4 py-2 font-medium text-slate-700 dark:text-slate-200",
+        "rounded-lg overflow-hidden tracking-tight transition-all duration-300 ease-in-out",
+        "hover:text-primary-dark dark:hover:text-primary-light",
+        "hover:-translate-y-0.5 hover:bg-black/[0.03] dark:hover:bg-white/[0.07]",
+        "hover:shadow-sm hover:shadow-black/5 dark:hover:shadow-black/20",
+        "focus-visible:outline-2 focus-visible:outline-primary-dark dark:focus-visible:outline-primary-light focus-visible:outline-offset-2",
+        "focus-visible:shadow-[0_0_0_4px_rgba(var(--color-primary-dark-rgb),0.1)] dark:focus-visible:shadow-[0_0_0_4px_rgba(var(--color-primary-light-rgb),0.2)]",
+        isActive && "text-primary-dark dark:text-primary-light font-semibold bg-black/[0.04] dark:bg-white/[0.08]"
+    ]}
+>
+    <span class="relative z-10 transition-transform duration-200 group-hover:translate-y-0.5">
+        <slot/>
+    </span>
+    <span 
+        class:list={[
+            "absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-accent to-primary-dark dark:from-accent-light dark:to-primary-light",
+            "opacity-80 dark:opacity-90 rounded-[3px] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+            isActive ? "w-full opacity-100" : "w-0 hover:w-full"
+        ]}
+    ></span>
+</a>

@@ -1,0 +1,63 @@
+---
+import TypewriterEffect from './TypewriterEffect.astro'
+import ProfileImage from './ProfileImage.astro'
+import Button from './Button.astro'
+
+interface Props {
+    imageUrl?: string
+}
+
+const {
+    imageUrl = "/profile.png"
+} = Astro.props
+
+const roles = [
+    {text: "a Data Scientist", emoji: ""},
+    {text: "a Violinist", emoji: " 🎻"},
+    {text: "an Astronomer", emoji: " 🔭"}
+]
+---
+
+<section class="py-16 md:py-28 container mx-auto px-4">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
+        <div class="w-full md:w-3/5 space-y-6 md:space-y-7 text-center md:text-left">
+            <div class="h-[60px] md:h-[90px] flex items-center justify-center md:justify-start">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-header font-bold tracking-tight">
+                    <span class="bg-gradient-to-r from-primary-dark to-accent-dark dark:from-primary-light dark:to-accent-light bg-clip-text text-transparent">I'm </span>
+                    <TypewriterEffect roles={roles} />
+                </h2>
+            </div>
+            <p class="text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-xl mx-auto md:mx-0 leading-relaxed animate-fadeIn">
+                Turning data into insights and building innovative solutions where AI meets creativity.
+            </p>
+            <div class="flex flex-wrap gap-5 pt-4 justify-center md:justify-start">
+                <Button href="mailto:nivethabalu.nitt@gmail.com" variant="primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Get in Touch
+                </Button>
+                <Button href="#projects" variant="secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                    View Projects
+                </Button>
+            </div>
+        </div>
+        <div class="w-full md:w-2/5 flex justify-center md:justify-end">
+            <ProfileImage imageUrl={imageUrl} altText="Nivetha Balu" size='large'/>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fadeIn {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+</style>

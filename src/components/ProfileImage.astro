@@ -1,0 +1,171 @@
+---
+interface Props {
+    imageUrl: string;
+    altText?: string;
+    size?: 'small' | 'medium' | 'large';
+    className?: string;
+    lazyLoad?: boolean;
+    accentColor?: string;
+}
+
+const { 
+    imageUrl,
+    altText = "Profile Image",
+    size = 'medium',
+    className = '',
+    lazyLoad = true,
+    accentColor = 'default' // default, blue, purple, teal, amber
+} = Astro.props;
+
+// Simplified size mapping
+const sizeMap = {
+    small: { image: 180 },
+    medium: { image: 240 },
+    large: { image: 320 }
+};
+
+const dimensions = sizeMap[size];
+---
+
+<div class={`profile-container size-${size} accent-${accentColor} ${className}`}>
+    <div class="blur-halo"></div>
+    <div class="image-container">
+        <img 
+            src={imageUrl} 
+            alt={altText} 
+            class="profile-image" 
+            loading={lazyLoad ? "lazy" : "eager"} 
+            width={dimensions.image}
+            height={dimensions.image}
+        />
+    </div>
+</div>
+
+<style define:vars={{ 
+    imageSize: `${dimensions.image}px`,
+    haloSize: `${dimensions.image * 1.5}px`
+}}>
+    .profile-container {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        isolation: isolate;
+    }
+
+    .blur-halo {
+        position: absolute;
+        width: var(--haloSize);
+        height: var(--haloSize);
+        border-radius: 50%;
+        opacity: 0.15;
+        filter: blur(40px);
+        transform: translate(0, 0);
+        transition: all 0.8s ease;
+        z-index: -1;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(125, 125, 255, 0.8) 0%,
+            rgba(180, 180, 255, 0.3) 70%,
+            transparent 100%
+        );
+        mix-blend-mode: normal;
+    }
+
+    .image-container {
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        width: var(--imageSize);
+        height: var(--imageSize);
+        transition: transform 0.5s ease;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    /* Accent color variations */
+    .accent-blue .blur-halo {
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(59, 130, 246, 0.7) 0%,
+            rgba(147, 197, 253, 0.3) 70%,
+            transparent 100%
+        );
+    }
+
+    .accent-purple .blur-halo {
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(139, 92, 246, 0.7) 0%,
+            rgba(196, 181, 253, 0.3) 70%,
+            transparent 100%
+        );
+    }
+
+    .accent-teal .blur-halo {
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(20, 184, 166, 0.7) 0%,
+            rgba(153, 246, 228, 0.3) 70%,
+            transparent 100%
+        );
+    }
+
+    .accent-amber .blur-halo {
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(245, 158, 11, 0.7) 0%,
+            rgba(252, 211, 77, 0.3) 70%,
+            transparent 100%
+        );
+    }
+
+    /* Subtle hover effects */
+    .profile-container:hover .blur-halo {
+        opacity: 0.25;
+        transform: scale(1.1);
+    }
+
+    .profile-container:hover .image-container {
+        
+    }
+
+    .profile-container:hover .profile-image {
+        transform: scale(1.05);
+    }
+
+    /* Dark mode adjustments */
+    :global(.dark) .blur-halo {
+        opacity: 0.2;
+    }
+
+    :global(.dark) .profile-container:hover .blur-halo {
+        opacity: 0.3;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .blur-halo {
+            opacity: 0.12;
+        }
+
+        :global(.dark) .blur-halo {
+            opacity: 0.18;
+        }
+    }
+
+    /* Animation for initial load */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .profile-container {
+        animation: fadeIn 1s ease-out forwards;
+    }
+</style>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary',
+  class: className = ''
+} = Astro.props;
+
+const isPrimary = variant === 'primary';
+---
+
+<a href={href} 
+   class:list={[
+     'group px-7 py-3.5 font-medium rounded-lg transition-all duration-300 relative overflow-hidden transform hover:-translate-y-1',
+     isPrimary ? 
+       'bg-gradient-to-r from-primary-dark to-accent-dark dark:from-primary to-accent text-white hover:shadow-[0_8px_20px_rgba(var(--color-primary-rgb),0.5)] dark:hover:shadow-[0_8px_20px_rgba(var(--color-primary-rgb),0.3)]' : 
+       'border-2 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-primary-dark dark:hover:border-primary',
+     className
+   ]}
+>
+  <span class="relative z-10 flex items-center gap-2.5">
+    <slot />
+  </span>
+  <span class:list={[
+    'absolute inset-0 transition-opacity duration-300',
+    isPrimary ? 
+      'bg-white dark:bg-dark-muted opacity-0 group-hover:opacity-20' : 
+      'bg-gradient-to-r from-primary-dark/10 to-accent-dark/10 dark:from-primary/10 dark:to-accent/10 opacity-0 group-hover:opacity-100'
+  ]}></span>
+</a>

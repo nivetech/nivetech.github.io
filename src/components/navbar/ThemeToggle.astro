@@ -1,0 +1,265 @@
+---
+// Star theme toggle component
+---
+
+<div class="star-toggle-container">
+    <div class="thread"></div>
+    <button 
+        id="theme-toggle" 
+        aria-label="Toggle dark mode"
+        title="Toggle between light and dark mode"
+        class="star-toggle"
+    >
+        <div class="star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-svg">
+            <path d="M12 1L9 9H1L7 14L5 22L12 17L19 22L17 14L23 9H15L12 1Z" />
+            </svg>
+            <div class="glow"></div>
+        </div>
+    </button>
+    <div id="ripple-container" class="ripple-container"></div>
+</div>
+    
+<style>
+    .star-toggle-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 50px;
+    }
+  
+    .thread {
+        width: 1px;
+        height: 15px;
+        background-color: var(--thread-color, #888);
+        margin-bottom: -2px;
+        transition: background-color 0.3s ease;
+    }
+  
+    .star-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+        z-index: 10;
+        transition: transform 0.3s ease;
+    }
+  
+    .star-toggle:hover {
+        transform: rotate(15deg) scale(1.1);
+    }
+  
+    .star-toggle:focus {
+        outline: none;
+    }
+  
+    .star-toggle:focus-visible {
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        border-radius: 50%;
+    }
+  
+    .star {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+  
+    .star-svg {
+        width: 100%;
+        height: 100%;
+        color: #aaa;
+        transition: all 0.3s ease;
+        z-index: 2;
+    }
+    
+    .star-svg.active {
+        color: #FFD700;
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+    }
+  
+    .glow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0) 70%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 1;
+    }
+    
+    .glow.active {
+        width: 45px;
+        height: 45px;
+        opacity: 0.8;
+    }
+  
+    .ripple-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+    }
+  
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.85);
+        transform: scale(0);
+        animation: ripple-animation 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+  
+    .ripple-light {
+        background: rgba(255, 255, 255, 0.9);
+    }
+  
+    @keyframes ripple-animation {
+        to {
+            transform: scale(2.5);
+            opacity: 0;
+        }
+    }
+  
+    @keyframes swing {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(8deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(-8deg); }
+        100% { transform: rotate(0deg); }
+    }
+  
+    .swinging {
+        animation: swing 1.5s ease-in-out;
+    }
+  
+    :global(.dark) .thread {
+        background-color: var(--thread-color-dark, #aaa);
+    }
+</style>
+    
+<style is:global>
+    html.theme-transition,
+    html.theme-transition *,
+    html.theme-transition *:before,
+    html.theme-transition *:after {
+      transition: all 0.5s !important;
+      transition-delay: 0 !important;
+    }
+</style>
+    
+<script>
+    // Initialize theme based on user preference or system setting
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        applyTheme(theme);
+        updateToggleAppearance();
+    }
+  
+    // Apply theme to document
+    function applyTheme(theme: string) {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }
+  
+    // Update toggle button appearance
+    function updateToggleAppearance() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const starSvg = document.querySelector('.star-svg');
+        const glow = document.querySelector('.glow');
+        const toggleButton = document.getElementById('theme-toggle');
+        
+        if (starSvg) starSvg.classList.toggle('active', isDark);
+        if (glow) glow.classList.toggle('active', isDark);
+        if (toggleButton) toggleButton.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+  
+    // Toggle theme with animation
+    function toggleTheme() {
+        const star = document.querySelector('.star');
+        const toggleButton = document.getElementById('theme-toggle');
+        const rippleContainer = document.getElementById('ripple-container');
+        
+        // Add swinging animation
+        star?.classList.add('swinging');
+        setTimeout(() => star?.classList.remove('swinging'), 1500);
+    
+        // Add transition class for smooth theme change
+        document.documentElement.classList.add('theme-transition');
+        
+        // Create ripple effect
+        if (toggleButton && rippleContainer) {
+            const rect = toggleButton.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) ripple.classList.add('ripple-light');
+            
+            ripple.style.left = `${centerX}px`;
+            ripple.style.top = `${centerY}px`;
+            
+            rippleContainer.appendChild(ripple);
+            
+            // Toggle theme after slight delay
+            setTimeout(() => {
+            document.documentElement.classList.toggle('dark');
+            const newIsDark = document.documentElement.classList.contains('dark');
+            
+            updateToggleAppearance();
+            localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+            
+            // Announce theme change for accessibility
+            const message = `Switched to ${newIsDark ? 'dark' : 'light'} mode`;
+            document.dispatchEvent(new CustomEvent('theme-changed', { detail: { message } }));
+            }, 50);
+            
+            // Clean up
+            setTimeout(() => {
+            ripple.remove();
+            document.documentElement.classList.remove('theme-transition');
+            }, 800);
+        }
+    }
+  
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTheme();
+        
+        // Set up event listeners
+        const toggleButton = document.getElementById('theme-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', toggleTheme);
+        }
+        
+        // Listen for system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+            updateToggleAppearance();
+            }
+        });
+        
+        // Listen for theme changes from other sources
+        document.addEventListener('theme-changed', updateToggleAppearance);
+    });
+  
+    // Initialize immediately to prevent flash
+    initializeTheme();
+</script>

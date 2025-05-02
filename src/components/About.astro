@@ -1,0 +1,143 @@
+---
+interface Props {
+    title?: string;
+}
+
+const { title = "About Me" } = Astro.props;
+
+// Timeline data structure - separated by category
+const workExperience = [
+    {
+        period: "Jul 2023 - Present",
+        title: "Software Engineer (Technology Analyst)",
+        organization: "Citi, Chennai",
+        details: [
+        "Created, managed and deployed pipelines using Lightspeed, TeamCity and UDeploy",
+        "Developed APIs to expose data to internal downstream systems",
+        "Contributed to the design and testing improvements for the CitiFX Pulse application"
+        ],
+        icon: "💼",
+        category: "work"
+    },
+    {
+        period: "Oct 2020 - Apr 2021",
+        title: "Data Scientist",
+        organization: "Fractal Analytics, Remote",
+        details: [
+        "Performed machine learning time series analysis with Python",
+        "Developed dashboards for monitoring tools using Qlik"
+        ],
+        icon: "📊",
+        category: "work"
+    }
+];
+
+const education = [
+    {
+        period: "2021 - 2023",
+        title: "M.E., Computer Science and Engineering",
+        organization: "College of Engineering, Guindy (Anna University)",
+        details: [
+        "Specialization in Big Data Analytics",
+        "9.31/10 CGPA"
+        ],
+        icon: "🎓",
+        category: "education"
+    },
+    {
+        period: "2016 - 2020",
+        title: "B.Tech, Electronics and Communication Engineering",
+        organization: "National Institute of Technology, Tiruchirappalli (NIT Trichy)",
+        details: [
+        "7.61/10 CGPA"
+        ],
+        icon: "🎓",
+        category: "education"
+    }
+];
+
+// More concise summary
+const summary = "Data scientist and software engineer with expertise in machine learning and enterprise application development. Passionate about transforming complex data into actionable insights and building intelligent systems.";
+---
+
+<section id="about" class="py-8 scroll-mt-20 relative container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-3xl font-header font-bold mb-8 text-primary-dark dark:text-primary-light">
+        {title}
+        </h3>
+        
+        <!-- Summary Card -->
+        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-lg p-6 mb-12 border-l-4 border-primary-light dark:border-primary-dark transition-all duration-300 hover:shadow-xl">
+        <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-200">
+            {summary}
+        </p>
+        </div>
+        
+        <!-- Timeline Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Work Experience Column -->
+        <div class="space-y-6">
+            <h4 class="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-100 flex items-center">
+            <span class="mr-3 text-2xl">💼</span> Work Experience
+            </h4>
+            <div class="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-blue-500 before:via-blue-400/50 before:to-blue-300/20 dark:before:from-blue-400 dark:before:via-blue-400/40 dark:before:to-blue-400/10">
+            {workExperience.map((item) => (
+                <div class="relative mb-8 last:mb-0 pl-5 group">
+                <div class="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-blue-500 dark:bg-blue-400 ring-4 ring-white dark:ring-gray-900"></div>
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl p-5 shadow-sm border border-gray-100/80 dark:border-gray-700/80 transition-all duration-300 group-hover:translate-x-1.5 group-hover:shadow-md h-full">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-3">
+                    <h4 class="text-base font-bold text-gray-900 dark:text-gray-50">{item.title}</h4>
+                    <span class="text-xs font-medium px-3 py-1 rounded-full inline-block bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300 whitespace-nowrap">
+                        {item.period}
+                    </span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-3">{item.organization}</p>
+                    <ul class="space-y-2">
+                    {item.details.map(detail => (
+                        <li class="text-sm text-gray-600 dark:text-gray-400 pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-blue-500 dark:before:text-blue-400">
+                        {detail}
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+                </div>
+            ))}
+            </div>
+        </div>
+        
+        <!-- Education Column -->
+        <div class="space-y-6">
+            <h4 class="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-100 flex items-center">
+            <span class="mr-3 text-2xl">🎓</span> Education
+            </h4>
+            <div class="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-purple-500 before:via-purple-400/50 before:to-purple-300/20 dark:before:from-purple-400 dark:before:via-purple-400/40 dark:before:to-purple-400/10">
+            {education.map((item) => (
+                <div class="relative mb-8 last:mb-0 pl-5 group">
+                <div class="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-purple-500 dark:bg-purple-400 ring-4 ring-white dark:ring-gray-900"></div>
+                <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl p-5 shadow-sm border border-gray-100/80 dark:border-gray-700/80 transition-all duration-300 group-hover:translate-x-1.5 group-hover:shadow-md h-full">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-3">
+                    <h4 class="text-base font-bold text-gray-900 dark:text-gray-50">{item.title}</h4>
+                    <span class="text-xs font-medium px-3 py-1 rounded-full inline-block bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300 whitespace-nowrap">
+                        {item.period}
+                    </span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-3">{item.organization}</p>
+                    <ul class="space-y-2">
+                    {item.details.map(detail => (
+                        <li class="text-sm text-gray-600 dark:text-gray-400 pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-purple-500 dark:before:text-purple-400">
+                        {detail}
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+                </div>
+            ))}
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- Background decoration -->
+    <div class="absolute top-0 right-0 -z-10 w-1/2 h-1/2 bg-gradient-to-bl from-primary-light/10 to-transparent dark:from-primary-dark/10 dark:to-transparent rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -z-10 w-1/2 h-1/2 bg-gradient-to-tr from-blue-500/5 to-transparent dark:from-blue-400/5 dark:to-transparent rounded-full blur-3xl"></div>
+</section>
