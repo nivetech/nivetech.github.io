@@ -1,13 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger on pushes to main branch
   push:
     branches: [ main ]
-  # Allow manual triggering
   workflow_dispatch:
 
-# Set permissions
 permissions:
   contents: read
   pages: write
@@ -35,7 +32,8 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./dist"
+          path: ./dist
+          name: github-pages  # 👈 Must match what deploy-pages expects
 
   deploy:
     needs: build
@@ -46,3 +44,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          artifact_name: github-pages  # 👈 Ensure this matches above
