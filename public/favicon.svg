@@ -1,29 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-  <title id="title">N logo</title>
-  <desc id="desc">Stylized letter N for a portfolio badge — adapts to light and dark color schemes.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <title>N favicon</title>
 
-  <circle cx="64" cy="64" r="60" fill="none" />
+  <circle cx="64" cy="64" r="64" fill="#0F1521"/>
 
   <text
     x="50%"
-    y="52%"
+    y="58%"
     text-anchor="middle"
     dominant-baseline="middle"
-    font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
-    font-weight="800"
-    font-size="72"
-    letter-spacing="0"
+    font-family="'Playfair Display SC', 'Libre Baskerville', Georgia, serif"
+    font-weight="500"
+    font-stretch="condensed"
+    font-size="90"
     fill="currentColor"
-    style="paint-order:stroke fill markers;"
   >
     N
   </text>
 
   <style>
-    /* default color for the glyph */
-    svg { color: #000; }
-
-    /* switch to white in dark mode */
+    svg {
+      color: #000;
+      width: 100%;
+      height: 100%;
+    }
     @media (prefers-color-scheme: dark) {
       svg { color: #fff; }
     }
